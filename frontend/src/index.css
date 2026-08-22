@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Space Grotesk", sans-serif;
+  --font-sans: "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  --color-paper: #F5F6F1;
+  --color-ink: #14161F;
+  --color-signal-50: #EEEEF8;
+  --color-signal-200: #B9B8E0;
+  --color-signal-600: #3A3894;
+  --color-signal-700: #2B2A6B;
+  --color-signal-900: #191850;
+  --color-beacon-100: #FBEAC9;
+  --color-beacon-400: #E8A33D;
+  --color-beacon-600: #B87A1E;
+  --color-banyan-100: #DCEEE4;
+  --color-banyan-500: #1F7A5C;
+  --color-banyan-700: #145840;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+}
+
+/* Respect the user's OS-level reduced-motion preference across the app */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}

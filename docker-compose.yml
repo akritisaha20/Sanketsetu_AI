@@ -1,0 +1,16 @@
+# Placeholder — services will be added here as each module comes online.
+# Not functional yet; frontend currently runs standalone with `npm run dev`.
+#
+# Planned shape:
+#
+# services:
+#   frontend:
+#     build: ./frontend
+#     ports: ["5173:5173"]
+#   backend:
+#     build: ./backend
+#     ports: ["8000:8000"]
+#   db:
+#     image: postgres:16
+#     environment:
+#       POSTGRES_DB: sanket_setu
