@@ -1,16 +1,18 @@
 import { useEffect, useState } from "react";
 import { ChevronLeft, Volume2, FileText, RotateCcw, Check, ExternalLink, WifiOff } from "lucide-react";
-import { fetchSchemeResult } from "../lib/api";
+import { fetchSchemeResult, type InputType } from "../lib/api";
 import type { SchemeResult } from "../lib/mockSchemes";
 import HandMark from "../components/HandMark";
 
 export default function Result({
-  gesture,
+  inputType,
+  query,
   confidence,
   onBack,
   onNewQuery,
 }: {
-  gesture: string;
+  inputType: InputType;
+  query: string;
   confidence: number;
   onBack: () => void;
   onNewQuery: () => void;
@@ -23,7 +25,7 @@ export default function Result({
   useEffect(() => {
     let cancelled = false;
     setLoading(true);
-    fetchSchemeResult(gesture, confidence).then(({ result, live }) => {
+    fetchSchemeResult(inputType, query, confidence).then(({ result, live }) => {
       if (cancelled) return;
       setR(result);
       setLive(live);
@@ -32,7 +34,7 @@ export default function Result({
     return () => {
       cancelled = true;
     };
-  }, [gesture, confidence]);
+  }, [inputType, query, confidence]);
 
   const readAloud = () => {
     if (!r || typeof window === "undefined" || !("speechSynthesis" in window)) return;
@@ -54,13 +56,13 @@ export default function Result({
       <div className="flex items-center gap-2 px-5 pt-6 pb-2">
         <button
           onClick={onBack}
-          aria-label="Back to sign mode"
+          aria-label="Back"
           className="w-8 h-8 rounded-full flex items-center justify-center text-ink/60 hover:bg-ink/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-signal-700"
         >
           <ChevronLeft size={20} />
         </button>
         <span className="text-[12px] text-ink/45 font-medium">
-          Result for &ldquo;{gesture}&rdquo;
+          Result for &ldquo;{query}&rdquo;
         </span>
       </div>
 

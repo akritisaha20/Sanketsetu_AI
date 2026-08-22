@@ -1,4 +1,7 @@
-import { MOCK_SCHEMES, GESTURE_WORDS, type SchemeResult } from "./mockSchemes";
+import { MOCK_SCHEMES, type SchemeResult } from "./mockSchemes";
+import { matchScheme } from "./matchScheme";
+
+export type InputType = "sign" | "voice" | "document" | "text";
 
 // Matches the /api/v1/process contract from the team's API design:
 // { status, intent, response: { title, summary, eligibility, documents, ... }, accessible_output }
@@ -17,11 +20,19 @@ type ProcessResponse = {
 
 const API_BASE = import.meta.env.VITE_API_BASE_URL as string | undefined;
 
+/**
+ * rawInput is whatever the user actually provided — the sign word, the
+ * typed text, the speech transcript, or the OCR'd document text. It's
+ * always what gets sent to the real backend. For the mock fallback, it's
+ * matched against a small set of known scheme keywords.
+ */
 export async function fetchSchemeResult(
-  gesture: string,
+  inputType: InputType,
+  rawInput: string,
   confidence: number
 ): Promise<{ result: SchemeResult; live: boolean }> {
-  const fallback = MOCK_SCHEMES[gesture] ?? MOCK_SCHEMES[GESTURE_WORDS[0]];
+  const matchedGesture = inputType === "sign" && MOCK_SCHEMES[rawInput] ? rawInput : matchScheme(rawInput);
+  const fallback = MOCK_SCHEMES[matchedGesture];
 
   // No backend configured yet (Aayusha's API isn't deployed) — use mock data
   // so the UI keeps working standalone. Set VITE_API_BASE_URL in .env once
@@ -35,8 +46,8 @@ export async function fetchSchemeResult(
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        input_type: "sign",
-        input: gesture,
+        input_type: inputType,
+        input: rawInput,
         confidence,
         session_id: crypto.randomUUID(),
       }),
@@ -49,7 +60,7 @@ export async function fetchSchemeResult(
 
     return {
       result: {
-        gesture,
+        gesture: matchedGesture,
         title: data.response.title,
         summary: data.response.summary,
         eligibility: data.response.eligibility,

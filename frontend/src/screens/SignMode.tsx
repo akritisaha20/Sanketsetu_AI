@@ -17,7 +17,7 @@ export default function SignMode({
   onConfirm,
 }: {
   onBack: () => void;
-  onConfirm: (gesture: string, confidence: number) => void;
+  onConfirm: (query: string, confidence: number) => void;
 }) {
   const { videoRef, canvasRef, state, error, handPresent } = useHandLandmarker();
   const [status, setStatus] = useState<Status>("detecting");

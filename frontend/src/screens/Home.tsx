@@ -12,9 +12,9 @@ const MODES: {
   ready: boolean;
 }[] = [
   { id: "sign", label: "Sign", hint: "Communicate in Indian Sign Language", icon: Hand, ready: true },
-  { id: "voice", label: "Voice", hint: "Speak your question aloud", icon: Mic, ready: false },
-  { id: "document", label: "Document", hint: "Scan a form or notice", icon: FileText, ready: false },
-  { id: "text", label: "Text", hint: "Type your question", icon: Keyboard, ready: false },
+  { id: "voice", label: "Voice", hint: "Speak your question aloud", icon: Mic, ready: true },
+  { id: "document", label: "Document", hint: "Scan a form or notice", icon: FileText, ready: true },
+  { id: "text", label: "Text", hint: "Type your question", icon: Keyboard, ready: true },
 ];
 
 export default function Home({ onSelect }: { onSelect: (mode: Mode) => void }) {
