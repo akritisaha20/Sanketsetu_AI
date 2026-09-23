@@ -34,7 +34,8 @@ def predict_gesture(landmarks: list) -> dict:
     # --- Mock behaviour for now ---
     gesture = random.choice(MOCK_GESTURES)
     confidence = round(random.uniform(0.6, 0.99), 2)
-    return {"gesture": gesture, "confidence": confidence}
+    return {"status": "success", "label": gesture, "confidence": confidence}
+   
 
 
 def is_confident(confidence: float) -> bool:
