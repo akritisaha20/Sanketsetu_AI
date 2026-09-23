@@ -31,8 +31,9 @@ def process(req: ProcessRequest):
 
     if req.input_type == "sign":
         result = predict_gesture(req.input)
-        gesture = result["gesture"]
+        gesture = result["label"]
         confidence = result["confidence"]
+        
 
         if not is_confident(confidence):
             return {
