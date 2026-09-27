@@ -1,0 +1,19 @@
+{
+  "model": "alphabet_rf_v1_calibrated.pkl",
+  "calibration": "sigmoid",
+  "threshold": 0.5,
+  "selection_rule": "Highest validation coverage among thresholds with accepted accuracy >= 0.95",
+  "validation": {
+    "coverage": 0.9187179487179488,
+    "unknown_rate": 0.08128205128205128,
+    "accepted_accuracy": 0.994976276862964
+  },
+  "test": {
+    "coverage": 0.916923076923077,
+    "unknown_rate": 0.08307692307692308,
+    "accepted_accuracy": 0.9955257270693513,
+    "accepted_precision": 0.9952249889851802,
+    "accepted_recall": 0.9954098331243553,
+    "accepted_f1": 0.9953053991894063
+  }
+}
