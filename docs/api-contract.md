@@ -63,3 +63,28 @@ so it's clear which mode is active.
   mock data regardless of live/mock mode. Add an `apply_steps: string[]`
   field to `response` when ready, and the frontend just needs a small
   change in `src/lib/api.ts` to use it.
+
+
+## Response status values
+- `success`: normal result
+- `low_confidence`: ISL confidence below 0.75, ask user to repeat the sign
+- `error`: invalid request or server error (HTTP 422 / 500)
+
+## Error response
+```json
+{
+  "status": "error",
+  "error": {
+    "code": "INVALID_REQUEST",
+    "message": "Request body is invalid.",
+    "details": [{ "field": "body.input_type", "message": "..." }]
+  },
+  "accessible_output": { "text": "...", "audio_available": false }
+}
+```
+
+## Request validation
+- `input_type`: `"sign"` | `"voice"` | `"text"`
+- `input`: non-empty string
+- `confidence`: optional, 0.0 to 1.0
+- `session_id`: non-empty string
