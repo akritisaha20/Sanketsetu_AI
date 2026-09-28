@@ -29,7 +29,7 @@ def predict_gesture(landmarks: list) -> dict:
     # TODO: replace with real inference:
     # prediction = model.predict([landmarks])
     # confidence = model.predict_proba([landmarks]).max()
-    # return {"gesture": prediction[0], "confidence": float(confidence)}
+    # return {"status": "success", "label": prediction[0], "confidence": float(confidence)}
 
     # --- Mock behaviour for now ---
     gesture = random.choice(MOCK_GESTURES)
